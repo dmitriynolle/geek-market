@@ -50,7 +50,7 @@ public class RegistrationController {
         }
         User existing = userService.findByUserName(userName);
         if (existing != null) {
-//             theSystemUser.setUserName(null);
+            // theSystemUser.setUserName(null);
             theModel.addAttribute("systemUser", theSystemUser);
             theModel.addAttribute("registrationError", "User name already exists");
             logger.debug("User name already exists.");

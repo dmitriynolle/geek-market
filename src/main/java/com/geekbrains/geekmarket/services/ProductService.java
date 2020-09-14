@@ -47,12 +47,11 @@ public class ProductService {
 
 //        List<Product> products = new ArrayList<>();
         List<Product> products = productRepository.findAll();
-//       List<Product> products = productRepository.findAllByPriceBetween(1.0, 8.0);
+//       // List<Product> products = productRepository.findAllByPriceBetween(1.0, 8.0);
 //        Product product = productRepository.myQuery(1L);
 //        products.add(product);
 
-//        return pr.stream().collect(Collectors.toList());
-        return products;
+        return products.stream().collect(Collectors.toList());
     }
 
     public List<Product> getProductsByVendorCode(String code) {
