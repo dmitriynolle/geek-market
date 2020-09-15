@@ -1,20 +1,33 @@
 package com.geekbrains.geekmarket.services;
 
-import com.geekbrains.geekmarket.entities.Product;
+import com.geekbrains.geekmarket.entities.*;
+import com.geekbrains.geekmarket.repositories.OrderRepository;
+import com.geekbrains.geekmarket.repositories.UserRepository;
 import com.geekbrains.geekmarket.utils.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class ShoppingCartService {
     private ProductService productService;
+    private OrderRepository orderRepository;
 
     @Autowired
     public void setProductService(ProductService productService) {
         this.productService = productService;
     }
+
+    @Autowired
+    public void setOrderRepository(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
 
     public ShoppingCart getCurrentCart(HttpSession session) {
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
@@ -62,5 +75,25 @@ public class ShoppingCartService {
 
     public double getTotalCost(HttpSession session) {
         return getCurrentCart(session).getTotalCost();
+    }
+
+//    @Transactional
+    public void save(HttpSession session) {
+        ShoppingCart cart = getCurrentCart(session);
+        User user = (User) session.getAttribute("user");
+        List<Orders> orders = new ArrayList<>();
+        Date date = new Date();
+        for (OrderItem o : cart.getItems()) {
+            Orders order = new Orders();
+            order.setOrder_id(date);
+            order.setUser(user);
+            order.setProduct(o.getProduct());
+            order.setQuantity(o.getQuantity());
+            order.setItemPrice(o.getItemPrice());
+            order.setTotalPrice(o.getTotalPrice());
+            orders.add(order);
+        }
+        orderRepository.saveAll(orders);
+
     }
 }
