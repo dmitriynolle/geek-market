@@ -9,30 +9,23 @@
     <title>Register New User Form</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}"/>
     <style>
 		.error {color:red}
     </style>
 </head>
 
-<body>
+<body class="text-center">
+<div th:replace="~{navigation :: navi(Login)}"></div>
 
-<div>
+<div class="div_center">
 
-    <div id="loginbox" style="margin-top: 50px;"
-         class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
-
-        <div class="panel panel-primary">
-
-            <div class="panel-heading">
-                <div class="panel-title">Register New User</div>
-            </div>
-
-            <div style="padding-top: 30px" class="panel-body">
-                <form th:action="@{/register/processRegistrationForm}"
-                      th:object="${systemUser}" method="post" class="form-horizontal">
+                <form th:action="@{/register/processRegistrationForm}" class="form-signin shadow p-3 bg-white new-rounded"
+                      th:object="${systemUser}" method="post">
 
                     <div class="form-group">
                         <div class="col-xs-15">
@@ -43,68 +36,67 @@
                             </div>
                         </div>
                     </div>
-
+                    <h1 class="h3 mb-3 font-weight-normal">Register New User</h1>
                     <!-- User name -->
                     <div class="error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" />
-                    <div style="margin-bottom: 25px" class="input-group">
 
-                        <!--<input type="text" th:text="${T(com.geekbrains.geekspring.entities.Course).PROJECT_NAME_MAX_LENGTH}" />-->
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+
+                        <div class="mt-3">User name</div>
                         <input th:field="*{userName}" placeholder="username (*)" class="form-control"/>
-                    </div>
 
+                    <div class="form-row">
+                        <div class="col">
                     <!-- Password -->
                     <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" />
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" th:field="*{password}" placeholder="password (*)" class="form-control"/>
-                    </div>
 
+                        <div class="mt-3">Password</div>
+                        <input type="password" th:field="*{password}" placeholder="password (*)" class="form-control"/>
+                        </div>
+                        <div class="col">
                     <!-- Confirm Password -->
                     <div class="error" th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}" />
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+
+                        <div class="mt-3">Confirm password</div>
                         <input type="password" th:field="*{matchingPassword}" placeholder="confirm password (*)" class="form-control"/>
+                        </div>
                     </div>
 
 
                     <!-- First name -->
                     <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" />
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+
+                        <div class="mt-3">First name</div>
                         <input th:field="*{firstName}" placeholder="first name (*)" class="form-control"/>
-                    </div>
+
 
                     <!-- Last name -->
                     <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" />
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input th:field="*{lastName}" placeholder="last name (*)" class="form-control"/>
-                    </div>
 
+                        <div class="mt-3">Last name</div>
+                        <input th:field="*{lastName}" placeholder="last name (*)" class="form-control"/>
+
+                    <div class="form-row">
+                        <div class="col">
                     <!-- Email -->
                     <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" />
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input th:field="*{email}" placeholder="email (*)" class="form-control"/>
-                    </div>
 
+                        <div class="mt-3">Email</div>
+                        <input th:field="*{email}" placeholder="email (*)" class="form-control"/>
+                        </div>
+                        <div class="col">
                     <!-- Phone -->
                     <div class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" />
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input th:field="*{phone}" placeholder="phone (*)" class="form-control"/>
-                    </div>
 
-                    <div style="margin-top: 10px" class="form-group">
-                        <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-primary">Register</button>
+                        <div class="mt-3">Phone</div>
+                        <input th:field="*{phone}" placeholder="phone (*)" class="form-control"/>
                         </div>
                     </div>
+
+
+                            <button type="submit" class="btn btn-lg my-btn btn-block mt-5 mb-3">Register</button>
+
                 </form>
             </div>
-        </div>
-    </div>
-</div>
+
 </body>
 </html>
