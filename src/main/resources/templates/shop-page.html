@@ -16,34 +16,21 @@
 
 <div th:replace="~{navigation :: navi(Shop)}"/>
 
-<div class="container">
-    <br>
-    <h1>@GeekMarket</h1>
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th>#</th>
-            <th>Категория</th>
-            <th>Название товара</th>
-            <th>Цена</th>
-            <th></th>
-        </tr>
-        </thead>
+<div class="new_card_product">
+    <div class="card card_row shadow new-rounded" th:each="product : ${products}">
+        <div class="shop_product_photo">
+            <img th:src="@{/img/1200976_v01_s.jpg}">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title" th:text="${product.title}"></h5>
+            <div class="card-text" th:text="${product.shortDescription}"></div>
+            <div class="card-price">
+                <span>Price: <span th:text="${product.price}"></span> P</span>
+                <a th:href="@{'/shop/cart/add/' + ${product.id}}" class="btn my-btn">Add cart</a>
+            </div>
+        </div>
+    </div>
 
-        <tr class="responsive-row" th:each="product : ${products}">
-            <td th:text="${product.id}"/>
-            <td th:text="${product.category.title}"/>
-            <td>
-                <span style="font-weight: bold;" th:text="${product.title}"></span>
-                <br>
-                <span th:text="${product.shortDescription}"></span>
-            </td>
-            <td th:text="${product.price}"/>
-            <td>
-                <a th:href="@{'/shop/cart/add/' + ${product.id}}">Добавить в корзину</a>
-            <td/>
-        </tr>
-    </table>
 </div>
 
 </body>
